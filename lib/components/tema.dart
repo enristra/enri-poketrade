@@ -31,24 +31,24 @@ List<DropdownMenuItem<String>> ordini = [
 ];
 
 List<CartaPokemon> listaRicerca = [
-  CartaPokemon(nome: "pickachu",edizione: "", prezzo: 10.0, image: "pickachu_1.jpg", condizione: "Come nuovo"),
-  CartaPokemon(prezzo: 35.0, image: "melmetal.jpg", condizione: "Buono"),
-  CartaPokemon(prezzo: 10.0, image: "axew.jpg", condizione: "Accettabile"),
-  CartaPokemon(prezzo: 30.5, image: "victini.jpg", condizione: "Condizione4"),
+  CartaPokemon(nome: "pickachu",edizione: "Edizione1", prezzo: 10.0, image: "pickachu_1.jpg", condizione: "Come nuovo"),
+  CartaPokemon(nome: "melmetal",edizione: "Edizione1", prezzo: 35.0, image: "melmetal.jpg", condizione: "Buono"),
+  CartaPokemon(nome: "axew",edizione: "Edizione1", prezzo: 10.0, image: "axew.jpg", condizione: "Accettabile"),
+  CartaPokemon(nome: "victini",edizione: "Edizione1", prezzo: 30.5, image: "victini.jpg", condizione: "Condizione4"),
 ];
 
 List<CartaPokemon> consigliati = [
-  CartaPokemon(prezzo: 10.0, image: "pickachu_1.jpg", condizione: "Come nuovo"),
-  CartaPokemon(prezzo: 35.0, image: "melmetal.jpg", condizione: "Buono"),
-  CartaPokemon(prezzo: 10.0, image: "axew.jpg", condizione: "Accettabile"),
-  CartaPokemon(prezzo: 30.5, image: "victini.jpg", condizione: "Condizione4"),
+  CartaPokemon(nome: "pickachu",edizione: "Edizione1", prezzo: 10.0, image: "pickachu_1.jpg", condizione: "Come nuovo"),
+  CartaPokemon(nome: "melmetal",edizione: "Edizione1", prezzo: 35.0, image: "melmetal.jpg", condizione: "Buono"),
+  CartaPokemon(nome: "axew",edizione: "Edizione1", prezzo: 10.0, image: "axew.jpg", condizione: "Accettabile"),
+  CartaPokemon(nome: "victini",edizione: "Edizione1", prezzo: 30.5, image: "victini.jpg", condizione: "Condizione4"),
 ];
 
 List<CartaPokemon> visualizzati = [
-  CartaPokemon(prezzo: 80.0, image: "mewtwo.jpg", condizione: "Decente"),
-  CartaPokemon(prezzo: 15.0, image: "snorlax.jpg", condizione: "Come nuovo"),
-  CartaPokemon(prezzo: 10.0, image: "regirock.jpg", condizione: "Condizione3"),
-  CartaPokemon(prezzo: 30.5, image: "groudon.jpg", condizione: "Condizione4"),
+  CartaPokemon(nome: "mewtwo",edizione: "Edizione1", prezzo: 80.0, image: "mewtwo.jpg", condizione: "Decente"),
+  CartaPokemon(nome: "snorlax",edizione: "Edizione1", prezzo: 15.0, image: "snorlax.jpg", condizione: "Come nuovo"),
+  CartaPokemon(nome: "regirock",edizione: "Edizione1", prezzo: 10.0, image: "regirock.jpg", condizione: "Condizione3"),
+  CartaPokemon(nome: "groudon",edizione: "Edizione1", prezzo: 30.5, image: "groudon.jpg", condizione: "Condizione4"),
 ];
 
 List<Chat> chatData = [
