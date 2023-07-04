@@ -1,12 +1,14 @@
 import "package:flutter/material.dart";
 import "package:poketrade/components/chat.dart";
 import "package:poketrade/components/tema.dart";
+import "package:poketrade/fake_database/database.dart";
 import "package:poketrade/message.dart";
 
 class ChatScreen extends StatelessWidget {
   final Chat chat;
+  final String username;
 
-  const ChatScreen({Key? key, required this.chat}) : super(key: key);
+  const ChatScreen({Key? key, required this.chat, required this.username}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class ChatScreen extends StatelessWidget {
                ),
              ],
             ),
-            title: Text(chat.name),
+            title: chat.offerente == username ? Text(chat.ricevente) : Text(chat.offerente),
             actions: [
               IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert))
             ],
@@ -46,6 +48,7 @@ class ChatScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 height: 70,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -57,16 +60,14 @@ class ChatScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Row(
-                  children: [
-                    Image.asset("assets/cards/mewtwo.jpg", scale: 4,),
-                    const SizedBox(width: 4,),
-                    Image.asset("assets/cards/melmetal.jpg", scale: 4,),
-                    const SizedBox(width: 4,),
-                    Image.asset("assets/cards/snorlax.jpg", scale: 4,),
-                    const SizedBox(width: 4,),
-                    Image.asset("assets/cards/groudon.jpg", scale: 4,),
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      for(var i = 0; i < chat.carteDesiderate.length; i++)
+                        Container(padding: const EdgeInsets.only(right: 5), child: Image.asset("assets/cards/${chat.carteDesiderate[i].carta.immagine}", scale: 4,)),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -75,7 +76,7 @@ class ChatScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: messages.length,
                       itemBuilder: (context, index) =>
-                          Message(message: messages[index]),
+                          Message(message: messages[index], username: username,),
                     )),
               ),
               Container(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:poketrade/components/tema.dart';
+import 'package:poketrade/fake_database/database.dart';
 import 'package:poketrade/vista_chat.dart';
 import 'package:poketrade/chat.dart';
 
 class ListaChat extends StatelessWidget {
-  const ListaChat({Key? key}) : super(key: key);
+  final String username;
+  const ListaChat({Key? key, required this.username}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,10 @@ class ListaChat extends StatelessWidget {
                     itemCount: chatData.length,
                     itemBuilder: (context, index) => ChatCard(
                       chat: chatData[index],
-                      tap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(chat: chatData[index],)))
-                    ))
+                      tap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(chat: chatData[index], username: username,))),
+                      username: username,
+                    )
+                )
             )
           ],
         ),

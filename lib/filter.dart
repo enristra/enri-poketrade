@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:poketrade/components/checkbox_item.dart';
 import 'package:poketrade/components/tema.dart';
+import 'package:poketrade/fake_database/database.dart';
 
 class Filters extends StatefulWidget {
   const Filters({Key? key}) : super(key: key);
@@ -157,8 +159,8 @@ class _FiltersState extends State<Filters> {
                       horizontal: 30.0, vertical: 10),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: edizioniCarte.length,
-                  itemBuilder: (context, index) => edizioniCarte[index],
+                  itemCount: edizioni.length,
+                  itemBuilder: (context, index) => CheckBoxItem<String>(value: CheckBoxItemObject<String>(value: edizioni[index])),
                 ),
                 const SizedBox(
                   height: 20,
@@ -182,8 +184,8 @@ class _FiltersState extends State<Filters> {
                       horizontal: 30.0, vertical: 10),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: condizioniCarte.length,
-                  itemBuilder: (context, index) => condizioniCarte[index],
+                  itemCount: condizioni.length,
+                  itemBuilder: (context, index) => CheckBoxItem(value: CheckBoxItemObject<String>(value: condizioni[index])),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

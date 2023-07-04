@@ -2,29 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:poketrade/components/carta.dart';
 class Carta extends StatelessWidget {
   final CartaPokemon carta;
-  const Carta({Key? key, required this.carta}) : super(key: key);
+  final bool popup;
+  const Carta({Key? key, required this.carta, this.popup=false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => showDialog<String>(
+      onTap: !popup ? null : () => showDialog<String>(
           context: context,
-          builder: (context) => Dialog.fullscreen(
-            backgroundColor: Colors.transparent,
+          builder: (context) => Dialog(
+            backgroundColor: const Color.fromRGBO(232, 227, 227, 95),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("assets/cards/${carta.image}"),
-                  //Text(carta.condizione, style: TextStyle(color: Colors.white),),
+                  Row(
+                    children: [
+                      Text(carta.carta.nome, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30),),
+                      const SizedBox(width: 10,),
+                      Text(carta.carta.edizione,),
+                    ],
+                  ),
+                  const SizedBox(height: 30,),
+                  Image.asset("assets/cards/${carta.carta.immagine}"),
+                  const SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      const Text("Prezzo: ", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+                      Text("${carta.prezzo} €"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("Condizione: ", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+                      Text(carta.condizione),
+                    ],
+                  ),
                   const SizedBox(height: 15),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Close'),
+                    child: const Text('Chiudi'),
                   ),
                 ],
               ),
@@ -35,7 +56,7 @@ class Carta extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset("assets/cards/${carta.image}", height: 240),
+            Image.asset("assets/cards/${carta.carta.immagine}", height: 240),
             Container(
               padding: const EdgeInsets.only(right: 5, left: 5),
               width: 157,
@@ -49,7 +70,7 @@ class Carta extends StatelessWidget {
                       Text(carta.condizione),
                     ],
                   ),
-                  Image.asset("assets/profiles/${carta.profilo}"),
+                  Image.asset("assets/profiles/${carta.proprietario}"),
                 ],
               ),
             ),

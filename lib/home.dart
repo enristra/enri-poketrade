@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:poketrade/carta.dart';
 import 'package:poketrade/components/tema.dart';
+import 'package:poketrade/fake_database/database.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String username;
+  const Home({Key? key, required this.username}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();

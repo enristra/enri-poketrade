@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import "package:poketrade/carta.dart";
 import "package:poketrade/components/tema.dart";
+import "package:poketrade/fake_database/database.dart";
 import "package:poketrade/filter.dart";
 
 class Ricerca extends StatefulWidget {
-  const Ricerca({Key? key}) : super(key: key);
+  final String username;
+  const Ricerca({Key? key, required this.username}) : super(key: key);
 
   @override
   State<Ricerca> createState() => _RicercaState();

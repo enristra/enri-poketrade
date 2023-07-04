@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:poketrade/aggiunta_carte.dart';
 import 'package:poketrade/carta.dart';
 import 'package:poketrade/components/tema.dart';
+import 'package:poketrade/components/utente.dart';
+import 'package:poketrade/providers/area_carte_provider.dart';
+import 'package:provider/provider.dart';
 
-class AreaCarte extends StatelessWidget {
-  const AreaCarte({Key? key}) : super(key: key);
+class AreaCarte extends StatefulWidget {
+
+  String username;
+  AreaCarte({Key? key, required this.username}) : super(key: key);
+
+  @override
+  State<AreaCarte> createState() => _AreaCarteState();
+}
+
+class _AreaCarteState extends State<AreaCarte> {
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +59,14 @@ class AreaCarte extends StatelessWidget {
                   children: [
                     const CircleAvatar(
                       radius: 35,
-                      backgroundImage: AssetImage("assets/profiles/default.jpg"),
+                      backgroundImage: AssetImage("assets/profiles/user3.jpg"),
                     ),
                     Expanded(child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("MarioRossi420", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                            Text(widget.username, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                             const SizedBox(height: 8),
                             Row(
                               children: [
@@ -79,8 +91,9 @@ class AreaCarte extends StatelessWidget {
                   childAspectRatio: (150/240),
                   crossAxisCount: 2,
                   children: [
-                    for(var i = 0; i < listaRicerca.length; i++)
-                      Carta(carta: listaRicerca[i])
+                    for(var i = 0; i < context.watch<AreaCarteProvider>().utenti[0].areaCarte.length; i++)
+                      //Carta(carta: listaRicerca[i])
+                      Carta(carta: context.watch<AreaCarteProvider>().utenti[0].areaCarte[i], popup: true,)
                   ],
                 ),
               ),
@@ -88,7 +101,7 @@ class AreaCarte extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: PokeTradePrimaryColor,
-            onPressed: (){},
+            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AggiuntaCarta(username: widget.username),));},
             child: const Icon(Icons.add),
           ),
         ),

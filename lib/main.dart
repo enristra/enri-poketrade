@@ -3,10 +3,12 @@ import 'package:poketrade/account_setting.dart';
 import 'package:poketrade/area_carte.dart';
 import 'package:poketrade/lista_chat.dart';
 import 'package:poketrade/home.dart';
+import 'package:poketrade/providers/area_carte_provider.dart';
 import 'package:poketrade/ricerca.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => AreaCarteProvider())], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -55,6 +57,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _index = 0;
   final double _width = 60.0;
+
+  String username = "Cuggio33";
 
   @override
   Widget build(BuildContext context) {
@@ -148,13 +152,13 @@ class _MyHomePageState extends State<MyHomePage> {
              ],
            ),
          ),
-         body: const TabBarView(
+         body: TabBarView(
            physics: NeverScrollableScrollPhysics(),
            children: [
-             AreaCarte(),
-             ListaChat(),
-             Home(),
-             Ricerca(),
+             AreaCarte(username: username,),
+             ListaChat(username: username,),
+             Home(username: username,),
+             Ricerca(username: username,),
              Account(),
            ],
          ),
