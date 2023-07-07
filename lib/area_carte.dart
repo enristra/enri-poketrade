@@ -1,21 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:poketrade/aggiunta_carte.dart';
 import 'package:poketrade/carta.dart';
+import 'package:poketrade/components/carta.dart';
 import 'package:poketrade/components/tema.dart';
-import 'package:poketrade/components/utente.dart';
+import 'package:poketrade/invio_offerta.dart';
 import 'package:poketrade/providers/area_carte_provider.dart';
 import 'package:provider/provider.dart';
 
 class AreaCarte extends StatefulWidget {
 
-  String username;
-  AreaCarte({Key? key, required this.username}) : super(key: key);
+  final String username;
+  final String? offerente;
+
+  const AreaCarte({Key? key, required this.username,this.offerente}) : super(key: key);
 
   @override
   State<AreaCarte> createState() => _AreaCarteState();
 }
 
 class _AreaCarteState extends State<AreaCarte> {
+  final List<CartaPokemon> carteSelezionate = [];
+  int utenteIndex = -1;
+  String? immaginePath;
+
+  toggleCarta(CartaPokemon carta){
+    for(var i = 0; i < carteSelezionate.length; i++){
+      if(carta == carteSelezionate[i]){
+        setState(() {
+          carteSelezionate.removeAt(i);
+        });
+        return;
+      }
+    }
+
+    setState(() {
+      carteSelezionate.add(carta);
+    });
+  }
+
+  int getIndexUtente(){
+    if(utenteIndex < 0){
+      utenteIndex = context.watch<AreaCarteProvider>().getIndexUtenteByUsername(widget.username)!;
+    }
+    return utenteIndex;
+  }
+
+  String getPathImmagine(){
+    immaginePath ??= context.watch<AreaCarteProvider>().getUtenteByUsername(widget.username)!.immagine;
+    return immaginePath!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +90,16 @@ class _AreaCarteState extends State<AreaCarte> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                 child: Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 35,
-                      backgroundImage: AssetImage("assets/profiles/user3.jpg"),
+                      backgroundImage: AssetImage("assets/profiles/${getPathImmagine()}"),
                     ),
                     Expanded(child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.username, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                            Text(widget.username, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                             const SizedBox(height: 8),
                             Row(
                               children: [
@@ -91,9 +124,13 @@ class _AreaCarteState extends State<AreaCarte> {
                   childAspectRatio: (150/240),
                   crossAxisCount: 2,
                   children: [
-                    for(var i = 0; i < context.watch<AreaCarteProvider>().utenti[0].areaCarte.length; i++)
-                      //Carta(carta: listaRicerca[i])
-                      Carta(carta: context.watch<AreaCarteProvider>().utenti[0].areaCarte[i], popup: true,)
+                    for(CartaPokemon c in context.watch<AreaCarteProvider>().utenti[getIndexUtente()].areaCarte)
+                      Carta(
+                        carta: c,
+                        popup: true,
+                        username: widget.username,
+                        onLongPress: widget.offerente != null ? ()=>toggleCarta(c) : null,
+                      ),
                   ],
                 ),
               ),
@@ -101,7 +138,9 @@ class _AreaCarteState extends State<AreaCarte> {
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: PokeTradePrimaryColor,
-            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AggiuntaCarta(username: widget.username),));},
+            onPressed: widget.offerente==null ?
+                (){Navigator.push(context, MaterialPageRoute(builder: (context) => AggiuntaCarta(username: widget.username),));}
+                : (){Navigator.push(context, MaterialPageRoute(builder: (context) => InvioOfferta(carteDesiderate: carteSelezionate, username: widget.username, offerente: widget.offerente!),));},
             child: const Icon(Icons.add),
           ),
         ),

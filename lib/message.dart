@@ -107,17 +107,12 @@ class OffertaMessage extends StatelessWidget {
         ),
         SizedBox(
           width: double.infinity,
-          child: SingleChildScrollView(
+          child: offerta.contropartita is ContropartitaScambio ? SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                for (var i = 0;
-                    i <
-                        (offerta.contropartita as ContropartitaScambio)
-                            .carteOfferte
-                            .length;
-                    i++)
+                for (var i = 0; i < (offerta.contropartita as ContropartitaScambio).carteOfferte.length; i++)
                   Container(
                     padding: const EdgeInsets.only(right: 5),
                     child: Image.asset(
@@ -127,7 +122,8 @@ class OffertaMessage extends StatelessWidget {
                   ),
               ],
             ),
-          ),
+          )
+              : Text("${(offerta.contropartita as ContropartitaAcquisto).importoOfferto.toStringAsFixed(2)} €"),
         ),
         isOfferente
             ? ElevatedButton.icon(

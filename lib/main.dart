@@ -4,11 +4,17 @@ import 'package:poketrade/area_carte.dart';
 import 'package:poketrade/lista_chat.dart';
 import 'package:poketrade/home.dart';
 import 'package:poketrade/providers/area_carte_provider.dart';
+import 'package:poketrade/providers/chat_provider.dart';
+import 'package:poketrade/providers/offerte_provider.dart';
 import 'package:poketrade/ricerca.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => AreaCarteProvider())], child: const MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => AreaCarteProvider()),
+    ChangeNotifierProvider(create: (context) => OfferteProvider()),
+    ChangeNotifierProvider(create: (context) => ChatProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -62,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -101,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
              isScrollable: true,
              labelStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
              padding: EdgeInsets.zero,
-             labelPadding: const EdgeInsets.only(left: 10),
+             labelPadding: EdgeInsets.only(left: orientation == Orientation.portrait ? 10 : 75),
              onTap: (x) {
                setState(() {
                  _index = x;
@@ -113,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  width: _width,
                  child: Tab(
                    text: "Carte",
-                   icon: _index==0 ? Image.asset("assets/icons/carte_icon_selected.png", height: 35) : Image.asset("assets/icons/carte_icon_unselected.png", height: 35),
+                   icon: ImageIcon(const AssetImage("assets/icons/carte_icon_selected.png"), size: 35, color: _index==0 ? Colors.red : Colors.black,)
                  ),
                ),
                SizedBox(
@@ -121,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  width: _width,
                  child: Tab(
                    text: "Chat",
-                   icon: _index==1 ? Image.asset("assets/icons/chat_icon_selected.png", height: 35) : Image.asset("assets/icons/chat_icon_unselected.png", height: 35),
+                   icon: ImageIcon(const AssetImage("assets/icons/chat_icon_selected.png"), size: 35, color: _index==1 ? Colors.red : Colors.black,)
                  ),
                ),
                SizedBox(
@@ -129,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  width: _width,
                  child: Tab(
                    text: "Home",
-                   icon: _index==2 ? Image.asset("assets/icons/home_icon_selected.png", height: 35) : Image.asset("assets/icons/home_icon_unselected.png", height: 35),
+                   icon: ImageIcon(const AssetImage("assets/icons/home_icon_selected.png"), size: 35, color: _index==2 ? Colors.red : Colors.black,)
 
                  ),
                ),
@@ -138,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  width: _width,
                  child: Tab(
                    text: "Ricerca",
-                   icon: _index==3 ? Image.asset("assets/icons/ricerca_icon_selected.png", height: 35) : Image.asset("assets/icons/ricerca_icon_unselected.png", height: 35),
+                   icon: ImageIcon(const AssetImage("assets/icons/ricerca_icon_selected.png"), size: 35, color: _index==3 ? Colors.red : Colors.black,)
                  ),
                ),
                SizedBox(
@@ -146,20 +153,20 @@ class _MyHomePageState extends State<MyHomePage> {
                  width: _width,
                  child: Tab(
                    text: "Account",
-                   icon: _index==4 ? Image.asset("assets/icons/profilo_icon_selected.png", height: 35) : Image.asset("assets/icons/profilo_icon_unselected.png", height: 35),
+                   icon: ImageIcon(const AssetImage("assets/icons/profilo_icon_selected.png"), size: 35, color: _index==4 ? Colors.red : Colors.black,)
                  ),
                ),
              ],
            ),
          ),
          body: TabBarView(
-           physics: NeverScrollableScrollPhysics(),
+           physics: const NeverScrollableScrollPhysics(),
            children: [
-             AreaCarte(username: username,),
+             AreaCarte(username: username),
              ListaChat(username: username,),
              Home(username: username,),
              Ricerca(username: username,),
-             Account(),
+             const Account(),
            ],
          ),
        ),

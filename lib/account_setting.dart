@@ -5,21 +5,25 @@ class Account extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: PokeTradePrimaryColor,
-        title: const Text("Account"),
-      ),
-      body: Container(
-        height: 406,
-        width: 300,
-        child: Column(
-          children: [
-            Image.asset("assets/images/pickachu_bricklayer.jpg"),
-            Text("Work in progress...")
-          ],
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/pickachu_bricklayer.jpg"),
+                  fit: BoxFit.scaleDown,
+              )
+          ),
         ),
-      ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: PokeTradePrimaryColor,
+            title: const Text("Account"),
+          ),
+          body: const Text("Work in progress..."),
+        ),
+      ],
     );
   }
 }

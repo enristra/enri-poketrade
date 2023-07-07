@@ -84,6 +84,11 @@ flutter:
     - assets/cards/regirock.jpg
     - assets/cards/snorlax.jpg
     - assets/cards/victini.jpg
+    - assets/cards/lucario1.jpg
+    - assets/cards/lucario2.jpg
+    - assets/cards/lucario3.jpg
+    - assets/cards/lucario4.jpg
+    - assets/cards/pikachu_chat_image.jpg
     - assets/profiles/default.jpg
     - assets/profiles/user1.jpg
     - assets/profiles/user2.jpg

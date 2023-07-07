@@ -13,15 +13,15 @@ class Offerta{
   Offerta({required this.offerente, required this.ricevente, required this.carteDesiderate, required this.contropartita}){_stateChanged();}
 
   bool accettaOfferta(){
-    return _rispondiOfferta(Risposta.Confermata);
+    return _rispondiOfferta(Risposta.confermata);
   }
 
   bool rifiutaOfferta(){
-    return _rispondiOfferta(Risposta.Rifiutata);
+    return _rispondiOfferta(Risposta.rifiutata);
   }
 
   annullaOfferta(){
-    this.valid = false;
+    valid = false;
     _stateChanged();
   }
 
@@ -74,7 +74,7 @@ abstract class Stato {
         return annullata;
       }
 
-    }else if(offerta.risposta == Risposta.Confermata){
+    }else if(offerta.risposta == Risposta.confermata){
       return confermata;
     }else{
       return rifiutata;
@@ -107,6 +107,6 @@ class Annullata extends Stato{
 }
 
 enum Risposta{
- Confermata,
- Rifiutata,
+ confermata,
+ rifiutata,
 }

@@ -117,7 +117,7 @@ class _RicercaState extends State<Ricerca> {
                     crossAxisCount: 2,
                     children: [
                       for(var i = 0; i < listaRicerca.length; i++)
-                        Carta(carta: listaRicerca[i])
+                        Carta(carta: listaRicerca[i], username: widget.username,)
                     ],
                 ),
               ),

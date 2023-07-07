@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                           physics: const BouncingScrollPhysics(),
                           children: [
                             for (var i = 0; i < 4; i++)
-                              Carta(carta: consigliati[i]),
+                              Carta(carta: consigliati[i], username: widget.username,),
                           ])),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
                           physics: const BouncingScrollPhysics(),
                           children: [
                             for (var i = 0; i < 4; i++)
-                              Carta(carta: visualizzati[i]),
+                              Carta(carta: visualizzati[i], username: widget.username,),
                           ])),
                 ],
               ),

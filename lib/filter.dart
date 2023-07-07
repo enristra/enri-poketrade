@@ -160,7 +160,7 @@ class _FiltersState extends State<Filters> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: edizioni.length,
-                  itemBuilder: (context, index) => CheckBoxItem<String>(value: CheckBoxItemObject<String>(value: edizioni[index])),
+                  itemBuilder: (context, index) => CheckBoxItem<String>(value: CheckBoxItemObject<String>(value: edizioni[index], label: edizioni[index])),
                 ),
                 const SizedBox(
                   height: 20,
@@ -185,7 +185,7 @@ class _FiltersState extends State<Filters> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: condizioni.length,
-                  itemBuilder: (context, index) => CheckBoxItem(value: CheckBoxItemObject<String>(value: condizioni[index])),
+                  itemBuilder: (context, index) => CheckBoxItem(value: CheckBoxItemObject<String>(value: condizioni[index], label: condizioni[index])),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

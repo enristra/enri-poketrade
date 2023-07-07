@@ -17,7 +17,6 @@ enum IndiceConvenienza {
 
   static IndiceConvenienza? getIndiceDaValore(double valore) {
     if (valore < 0 || valore > 100) {
-      print("Il valore con cui calcolare l'indice deve essere > 0 e < 100!");
       return null;
     }
 
@@ -70,9 +69,9 @@ class InfoOfferta extends StatelessWidget {
     double valore;
 
     if (isOfferente) {
-      valore = (valoreRichiesta * 100) / valoreTotale;
-    } else {
       valore = (valoreContropartita * 100) / valoreTotale;
+    } else {
+      valore = (valoreRichiesta * 100) / valoreTotale;
     }
 
     IndiceConvenienza indice = IndiceConvenienza.getIndiceDaValore(valore)!;
@@ -83,7 +82,7 @@ class InfoOfferta extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Info"),
+        title: const Text("Info"),
         backgroundColor: PokeTradePrimaryColor,
         foregroundColor: PokeTradeSecondaryColor,
       ),
@@ -128,24 +127,21 @@ class InfoOfferta extends StatelessWidget {
             Container(
                 alignment: Alignment.centerLeft,
                 child: const Text(
-                  "Le tue carte:",
+                  "La tua controparte:",
                   style: TextStyle(fontSize: 20),
                 )),
             const SizedBox(
               height: 10,
             ),
             isOfferente
-                ? InfoCarte(
-                    carte: (contropartita as ContropartitaScambio).carteOfferte)
+                ? contropartita is ContropartitaScambio ? InfoCarte(carte: (contropartita as ContropartitaScambio).carteOfferte) : Text("${(contropartita as ContropartitaAcquisto).importoOfferto.toStringAsFixed(2)} €")
                 : InfoCarte(carte: carteDesiderate),
             const SizedBox(
               height: 30,
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: const Text(
-                "Le sue carte:",
-                style: TextStyle(fontSize: 20),
+              child: const Text("La sua controparte:", style: TextStyle(fontSize: 20),
               ),
             ),
             const SizedBox(
@@ -153,9 +149,7 @@ class InfoOfferta extends StatelessWidget {
             ),
             isOfferente
                 ? InfoCarte(carte: carteDesiderate)
-                : InfoCarte(
-                    carte:
-                        (contropartita as ContropartitaScambio).carteOfferte),
+                : contropartita is ContropartitaScambio ? InfoCarte(carte: (contropartita as ContropartitaScambio).carteOfferte) : Text("${(contropartita as ContropartitaAcquisto).importoOfferto.toStringAsFixed(2)} €")
           ],
         ),
       ),
@@ -176,7 +170,7 @@ class InfoCarte extends StatelessWidget {
         children: [
           for (var i = 0; i < carte.length; i++)
             Container(
-                padding: EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.only(right: 10),
                 child: Image.asset("assets/cards/${carte[i].carta.immagine}")),
         ],
       ),

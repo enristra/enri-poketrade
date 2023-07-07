@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class AggiuntaCarta extends StatefulWidget {
   final String username;
 
-  AggiuntaCarta({Key? key, required this.username}) : super(key: key);
+  const AggiuntaCarta({Key? key, required this.username}) : super(key: key);
 
   @override
   State<AggiuntaCarta> createState() => _AggiuntaCartaState();
@@ -95,11 +95,11 @@ class _AggiuntaCartaState extends State<AggiuntaCarta> {
 
             ElevatedButton(
                 onPressed: (){aggiungiCarta(context);},
-                child: Text("Aggiungi"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: PokeTradePrimaryColor,
                   foregroundColor: PokeTradeSecondaryColor,
                 ),
+                child: const Text("Aggiungi"),
             )
           ],
         ),

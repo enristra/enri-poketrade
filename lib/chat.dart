@@ -1,14 +1,25 @@
 import "package:flutter/material.dart";
 import "package:poketrade/components/chat.dart";
+import "package:poketrade/components/chat_message.dart";
 import "package:poketrade/components/tema.dart";
-import "package:poketrade/fake_database/database.dart";
+import "package:poketrade/invio_offerta.dart";
 import "package:poketrade/message.dart";
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   final Chat chat;
   final String username;
 
   const ChatScreen({Key? key, required this.chat, required this.username}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+
+  String message = "";
+  final TextEditingController _messaggeController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +44,15 @@ class ChatScreen extends StatelessWidget {
              children: [
                IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () {Navigator.pop(context);}),
                CircleAvatar(
-                 backgroundImage: AssetImage(chat.image),
+                 backgroundImage: AssetImage(widget.chat.image),
                ),
              ],
             ),
-            title: chat.offerente == username ? Text(chat.ricevente) : Text(chat.offerente),
+            title: widget.chat.offerente == widget.username ? Text(widget.chat.ricevente) : Text(widget.chat.offerente),
             actions: [
+              if(widget.chat.offerente == widget.username) IconButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => InvioOfferta(carteDesiderate: widget.chat.carteDesiderate, username: widget.chat.ricevente, offerente: widget.username,),));
+                }, icon: const Icon(Icons.add)),
               IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert))
             ],
           ),
@@ -64,8 +78,8 @@ class ChatScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      for(var i = 0; i < chat.carteDesiderate.length; i++)
-                        Container(padding: const EdgeInsets.only(right: 5), child: Image.asset("assets/cards/${chat.carteDesiderate[i].carta.immagine}", scale: 4,)),
+                      for(var i = 0; i < widget.chat.carteDesiderate.length; i++)
+                        Container(padding: const EdgeInsets.only(right: 5), child: Image.asset("assets/cards/${widget.chat.carteDesiderate[i].carta.immagine}", scale: 4,)),
                     ],
                   ),
                 ),
@@ -74,9 +88,10 @@ class ChatScreen extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: ListView.builder(
-                      itemCount: messages.length,
+                      controller: _scrollController,
+                      itemCount: widget.chat.messagi.length,
                       itemBuilder: (context, index) =>
-                          Message(message: messages[index], username: username,),
+                          Message(message: widget.chat.messagi[index], username: widget.username,),
                     )),
               ),
               Container(
@@ -95,6 +110,11 @@ class ChatScreen extends StatelessWidget {
                         children: [
                           Expanded(
                               child: TextField(
+
+                                controller: _messaggeController,
+                                onChanged: (value) => setState(() {
+                                  message = value;
+                                }),
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: PokeTradePrimaryColor, width: 2), borderRadius: BorderRadius.circular(10)),
                                     suffixIcon: const Icon(Icons.image_outlined, color: PokeTradeSecondaryColor, size: 30,),
@@ -102,14 +122,27 @@ class ChatScreen extends StatelessWidget {
                                       fillColor: Colors.white,
                                       filled: true))),
                           const SizedBox(width: 10,),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color: PokeTradePrimaryColor,
-                              borderRadius: BorderRadius.circular(50)
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                              if(message.isEmpty){
+                                return;
+                              }
+                              widget.chat.messagi.add(ChatMessage(contenuto: ContenutoTesto(testo: message), isSender: true));
+                              message = "";
+                              _messaggeController.clear();
+                            });
+                              _scrollController.jumpTo(_scrollController.position.maxScrollExtent+54);
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: PokeTradePrimaryColor,
+                                borderRadius: BorderRadius.circular(50)
+                              ),
+                                child: const Icon(Icons.send_outlined)
                             ),
-                              child: const Icon(Icons.send_outlined)
                           ),
                         ],
                       ),
