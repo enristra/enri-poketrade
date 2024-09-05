@@ -2,7 +2,7 @@
 
 PokéTrade è un'applicazione mobile cross-platform sviluppata con Flutter. Permette la compravendita e lo scambio di carte collezionabili a tema Pokémon.
 Lo scopo di questa applicazione è quello di fornire ai giocatori e ai collezionisti di carte Pokémon un servizio specifico permettendo loro di non utilizzare più servizi di compravendita generici online.
-PokéTrade è sviluppato da [moscao](https://github.com/Moscao13) [infrizzi](https://github.com/infrizzi) e [enristra](https://github.com/enristra) come progetto per l'esame di Ingengeria del Software T presso l'Università degli studi di Bologna, Italia e, inoltre, rappresenta il nostro primo progetto scritto con il framework flutter appositamente imparato per l'occorrenza.
+PokéTrade è sviluppato da [Mattia Mosconi](https://github.com/Moscao13), [Luca Paladino](https://github.com/infrizzi) e [Enrico Strangio](https://github.com/enristra) come progetto per l'esame di Ingengeria del Software T presso l'Università degli studi di Bologna, Italia e, inoltre, rappresenta il nostro primo progetto scritto con il framework flutter appositamente imparato per l'occorrenza.
 
 Ai soli fini dell'esame l'applicazione risulterà stand alone e non presenterà, quindi, le funzionalità per connettersi con altri utenti e per la persistenza dei dati. I pochi dati presenti nel progetto sono hardcoded e sono stati creati ad hoc esclusivamente per la presentazione del progetto in sede di esame.
 Si spera in futuro di avere la possibilità di implementare l'applicazione aggiungendo tutte le funzionalità mancanti.
